@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Todo = () => {
-	
   const classes = useStyles();
 
   return (

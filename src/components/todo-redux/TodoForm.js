@@ -1,23 +1,23 @@
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 
-const TodoForm = ({ inputRef, onChange, onAdd }) => {
+const TodoForm = ({ onChange, }) => {
 
-	// const inputRef= useRef();
-//	const id = new Date().getTime();
-	// const memo = inputRef.current.value;
+	const inputRef = useRef();
 
-	//store에 dispatch할 함수를 생성
-	//const dispatch = useDispatch();
+	// store에 dispatch할 함수를 생성
+	const dispatch = useDispatch();
 
-	// const add = () => {
-	// 	dispatch({type:'ADD_TODO', payload:{id, memo}});
-	// }
+	const add = () => {
+		dispatch({type:"ADD_TODO", payload: {id: new Date().getTime(), memo:inputRef.current.value}});
+	};
 
   return (
     <div style={{ display: "flex" }}>
       <TextField
+			className="TextField 컴포넌트에 className 줬을 때 적용되는 태그"
         variant="outlined"
         inputRef={inputRef}
         label="할 일 ..."
@@ -32,7 +32,7 @@ const TodoForm = ({ inputRef, onChange, onAdd }) => {
         style={{ width: "10%" }}
         variant="contained"
         color="primary"
-        onClick={onAdd}
+        onClick={add}
       >
         입력
       </Button>

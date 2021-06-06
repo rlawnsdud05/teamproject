@@ -5,6 +5,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
 import ContactItem from './ContactItem';
 
 const ContactList = ({ tbody, contactList, onInputRemove, onInputModify, onInputSave, onInputCancel }) => {

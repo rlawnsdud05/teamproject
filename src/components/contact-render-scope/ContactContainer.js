@@ -1,4 +1,3 @@
-import { Save } from "@material-ui/icons";
 import { useRef, useState } from "react";
 import ContactForm from "../contact-render-scope/ContactForm";
 import ContactList from "../contact-render-scope/ContactList";
@@ -83,9 +82,6 @@ const ContactContainer = () => {
 				onInputSave={handleInputSave}
 				onInputCancel={handleInputCancel}
 			/>
-
-
-
 		</>
 	);
 

@@ -7,14 +7,14 @@ import {list} from './data';
 const TodoContainer = () => {
 	
   const [todoList, setTodoList] = useState(list);
-  const input = useRef();
+  //const input = useRef();
   const ul = useRef();
 
-  const add = () => {
-    console.log(input.current);
-    setTodoList([{ memo: input.current.value }, ...todoList]);
-    input.current.value = "";
-  };
+  // const add = () => {
+  //   console.log(input.current);
+  //   setTodoList([{ memo: input.current.value }, ...todoList]);
+  //   input.current.value = "";
+  // };
 
   const change = (event) => {
     // console.log(event);
@@ -50,9 +50,8 @@ const TodoContainer = () => {
 
   return (
     <>
-      <TodoForm inputRef={input} onAdd={add} onChange={change} />
+      <TodoForm onChange={change} />
       <TodoList
-        todoList={todoList}
         ulRef={ul}
         onRemove={remove}
         onSave={save}

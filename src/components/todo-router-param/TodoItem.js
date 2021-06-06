@@ -12,7 +12,7 @@ import {useHistory} from 'react-router';
 const TodoItem = ({ index, todo, onRemove, onSave }) => {
 	const [isEdit, setIsEdit] = useState(todo.isEdit);
 
-	const history = useHistory(); //useHistory() -> 코드를 이용하여 경로제어를 할 수 있음 <> Link 컴포넌트는 선언을 해서 이동한 것
+	const history = useHistory(); //useHistory() -> 코드적인방법으로 경로제어(코드를 이용하여 경로제어를 할 수 있음) <-> 선언하는 방법으로 경로제어(Link 컴포넌트는 선언을 해서 이동한 것)
 
 	return (
 		<ListItem>
@@ -22,9 +22,9 @@ const TodoItem = ({ index, todo, onRemove, onSave }) => {
 				}}
 			>
 				<Check />
-			</ListItemIcon>
+			</ListItemIcon>									{/* css in js */}
 																			{/* 화면 요소에 마우스 올렸을때 커서 모양이 손가락으로 변경됨 */}
-			{!isEdit && <ListItemText style={{cursor:"pointer"}} >{todo.memo}</ListItemText>}
+			{!isEdit && <ListItemText style={{cursor:"pointer"}} onClick={()=>{ history.push(`/todo/${todo.id}`)}} >{todo.memo}</ListItemText>}
 																																				{/*history.push('경로명') : history stack에 경로 추가 */}
 			{!isEdit && (
 				<Button
