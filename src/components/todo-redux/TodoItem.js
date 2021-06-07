@@ -15,6 +15,7 @@ const TodoItem = ({ index, todo}) => {
 	const history = useHistory(); //useHistory() -> 코드적인방법으로 경로제어(코드를 이용하여 경로제어를 할 수 있음) <> 선언하는 방법으로 경로제어(Link 컴포넌트는 선언을 해서 이동한 것)
 	const dispatch = useDispatch();
 	const inputRef = useRef();
+	console.log(todo.isEdit);
 
 	const remove = (id) => {
 		dispatch({type: "REMOVE_TODO", payload: id});
@@ -52,7 +53,6 @@ const TodoItem = ({ index, todo}) => {
 			{isEdit && (
 				<ListItemText>
 					<TextField
-						className="TextField 컴포넌트에 className 줬을 때 적용되는 태그"
 						type="text"
 						/* 어느 상황에서 속성값에 {}를 줘야하는가? */
 						inputRef={inputRef}

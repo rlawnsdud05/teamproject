@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Todo = lazy(() => import("./components/todo-redux/Todo"));//router에는 컨터이너 컴포넌트가 로딩됨
 const TodoDetail = lazy(() => import("./components/todo-redux/TodoDetail"));
-const Contact = lazy(() => import("./components/contact-render-scope/Contact"));
+const Contact = lazy(() => import("./components/contact-redux/Contact"));
 
 function App() {
 	const classes = useStyles(); //css 클래스 목록이 생성됨

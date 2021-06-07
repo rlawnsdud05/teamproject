@@ -1,4 +1,6 @@
-import TodoContainer from "./TodoContainer";
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList"
+
 
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -37,7 +39,8 @@ const Todo = () => {
           <Paper className={classes.paper}>
             <Typography variant="h3">To-Do</Typography>
             <Divider style={{ marginTop: "1rem", marginBottom: "2rem" }} />
-            <TodoContainer />
+            <TodoForm/>
+            <TodoList/>
           </Paper>
         </Grid>
         <Hidden xsDown>

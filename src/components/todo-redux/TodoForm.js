@@ -14,6 +14,13 @@ const TodoForm = ({ onChange, }) => {
 		dispatch({type:"ADD_TODO", payload: {id: new Date().getTime(), memo:inputRef.current.value}});
 	};
 
+  const change = (event) => {
+    // console.log(event);
+    if (event.charCode === 13) {
+      add();
+    }
+  };
+
   return (
     <div style={{ display: "flex" }}>
       <TextField
@@ -21,7 +28,7 @@ const TodoForm = ({ onChange, }) => {
         variant="outlined"
         inputRef={inputRef}
         label="할 일 ..."
-        onKeyPress={onChange}
+        onKeyPress={change}
         size="small"
         style={{
           width: "90%",
