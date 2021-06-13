@@ -1,23 +1,7 @@
 // todoList 상태를 관리하는 reducer(todo)만들기
+const initialState = [];
 
-const initialState = [
-	{
-		id: 1,
-		memo: 'React 공부하기',
-		comments: [
-			{ id: 1, content: '커맨드1' },
-			{ id: 2, content: '커맨드2' },
-		],
-	},
-	{
-		id: 2,
-		memo: 'React 공부하기',
-		comments: [
-			{ id: 3, content: '커맨드3' },
-			{ id: 4, content: '커맨드4' },
-		],
-	},
-];
+
 
 
 
@@ -30,15 +14,19 @@ const todo = (state = initialState, action) => {
 	/* action 구조 : {type:'명령어', payload:'메시지(컴포넌트간·시스템간 전송하는 데이터)'} => command pattern = */
 
 	switch (action.type) {
-		case "ADD_TODO":
+		case "ADD_TODO_SUCCEEDED":
 			//return 값으로 변동된 state를 return
 			return [{ ...action.payload }, ...state]; /* -> action {type: 'ADD_TODO', payload: {id:1, memo: 'redux 공부'}} */
 
-		case "REMOVE_TODO":
+		case "REMOVE_TODO_SUCCEEDED":
 			return state.filter(todo => todo.id !== action.payload); /* action= {type: "REMOVE_TODO, payload:1"} */
-		
-			case "SAVE_TODO":
-			return state.map(todo => todo.id === action.payload.id ? {...action.payload} : todo);/* action= {type: "REMOVE_TODO, payload:{id:1, memo: "Redux 공부하기"}}"}  */
+
+		case "MODITY_TODO_SUCCEEDED":
+			return state.map(todo => todo.id === action.payload.id ? { ...action.payload } : todo);/* action= {type: "REMOVE_TODO, payload:{id:1, memo: "Redux 공부하기"}}"}  */
+
+		//서버에서 받아온 데이터를 state로 변경
+		case "FETCH_TODOLIST_SUCCEEDED":
+			return [...action.payload];
 		default:
 			return state;
 	}

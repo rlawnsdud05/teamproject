@@ -1,26 +1,6 @@
 import './App.css';
 
-//컴포넌트간 이동에 사용하는 라이브러리(모듈)
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-//lazy-loading시 사용할 라이브러리(모듈)
-import { Suspense, lazy, useState } from 'react';
-
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import { green, purple } from "@material-ui/core/colors";
-import { ThemeProvider } from "@material-ui/styles";
-
-//Core Components
-import AppBar from '@material-ui/core/AppBar';
-import { Drawer, Hidden, IconButton, Toolbar, Typography } from '@material-ui/core';
-
-//Reducer
-
-import {createStore} from 'redux';
-import rootReducer from './components/redux';
-import { Provider } from 'react-redux'; //from 뒤에 경로없이 이름만 썻을 때는 node_modules 폴더에서 import하는 것
-
-//Icons
+//Material ui
 import {
 	Home as HomeIcon,
 	PlaylistAddCheck,
@@ -33,12 +13,43 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
+//컴포넌트간 이동에 사용하는 라이브러리(모듈)
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+//lazy-loading시 사용할 라이브러리(모듈)
+import { Suspense, lazy, useState } from 'react';
+
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { green, purple } from "@material-ui/core/colors";
+import { ThemeProvider } from "@material-ui/styles";
+
+//redux-saga시 사용할 라이브러리?
+import createSagaMiddleware from 'redux-saga'; //saga middleware를 사용하는데 쓴다.
+
+//Core Components
+import AppBar from '@material-ui/core/AppBar';
+import { Drawer, Hidden, IconButton, Toolbar, Typography } from '@material-ui/core';
+
+//Reducer
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux'; //from 뒤에 경로없이 이름만 썻을 때는 node_modules 폴더에서 import하는 것
+
+//reducer
+import rootReducer from './redux/reducers';
+//Saga
+import rootSaga from './redux/sagas';
 
 import Home from './components/Home';
 
+// saga middlwWare 적용
+const sagaMiddleWare = createSagaMiddleware();
 
 // rootReducer 가 들어있는  store 생성
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleWare));
+
+//root saga로 saga middlwware 실행
+//saga에서 중간에 캐치할 action들에 대해서 응답대기
+sagaMiddleWare.run(rootSaga);
 
 const drawerWidth = '240px';
 
@@ -79,9 +90,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Todo = lazy(() => import("./components/todo-redux/Todo"));//router에는 컨터이너 컴포넌트가 로딩됨
-const TodoDetail = lazy(() => import("./components/todo-redux/TodoDetail"));
-const Contact = lazy(() => import("./components/contact-redux/Contact"));
+const Todo = lazy(() => import("./components/todo-saga/Todo"));//router에는 컨터이너 컴포넌트가 로딩됨
+const TodoDetail = lazy(() => import("./components/todo-saga/TodoDetail"));
+const Contact = lazy(() => import("./components/contact-saga/Contact"));
 
 function App() {
 	const classes = useStyles(); //css 클래스 목록이 생성됨

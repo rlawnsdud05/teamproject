@@ -10,36 +10,30 @@ import { useRef, useState } from "react";
 import { useHistory } from 'react-router';
 import { useDispatch } from "react-redux";
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, index }) => {
 
 	const [isEdit, setIsEdit] = useState(todo.isEdit);
 	const history = useHistory(); //useHistory() -> 코드적인방법으로 경로제어(코드를 이용하여 경로제어를 할 수 있음) <> 선언하는 방법으로 경로제어(Link 컴포넌트는 선언을 해서 이동한 것)
 	const dispatch = useDispatch();
 	const inputRef = useRef();
-	console.log(todo.isEdit);
 
 	const remove = (id) => {
-		console.log('dispatch실행');
-		//dispatch({ type: "REMOVE_TODO", payload: id });
-
+		dispatch({ type: "REMOVE_TODO", payload: id });
 	}
 
 	const save = (id) => {
 		const memo = inputRef.current.value;
-		dispatch({ type: "SAVE_TODO", payload: { id, memo } });
+		dispatch({ type: "MODIFY_TODO", payload: { id, memo } });
 	}
 
-
-
-
 	return (
-		<ListItem>
+		<ListItem key={index}>
 			<ListItemIcon
 				onClick={() => {
 					remove(todo.id);
 				}}
 			>
-				<Check style={{ cursor: "pointer" }} />
+				<Check />
 			</ListItemIcon>									{/* css in js */}
 			{/* 화면 요소에 마우스 올렸을때 커서 모양이 손가락으로 변경됨 */}
 			{!isEdit && <ListItemText style={{ cursor: "pointer" }} onClick={() => { history.push(`/todo/${todo.id}`) }} >{todo.memo}</ListItemText>}
