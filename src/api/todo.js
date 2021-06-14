@@ -12,10 +12,12 @@ const todoApi = {
 	// result.then(res => {
 	//	console.log(res.data); 결과 데이터
 	//	});
-
+	//axios.get(url,)
 	//axios.post('url',data);
 	//axios.post() return Promise 객체로 생성됨
+	//axios.post(`${process.env.REACT_APP_API_BASE}/todos`).then((response)=>{})
 	//아래문장과 동일 todoApi.add(data);
+	//add: (data) => axios.post(`${process.env.REACT_APP_API_BASE}/todos`, data).then((Response) => console.log(Response.data))
 	add: (data) => axios.post(`${process.env.REACT_APP_API_BASE}/todos`, data),
 	//todoApi.add(data) -> POST httpL// .....:8080/todos {"memo": "redux-saga 공부하기"}
 	// 자바스크립트 object가 jason 형식으로 자동 변환

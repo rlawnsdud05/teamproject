@@ -10,8 +10,8 @@ const TodoList = ({ ulRef, onRemove, onSave }) => {
 	const todoList = useSelector((state) => state.todo);
 	const dispatch = useDispatch();
 
-	//컴포넌트가 처음 마운트 됐을 때 서버에서 데이터를 받아옴
-	//=컴포넌트가 화면에 올라탄다(나왔다.)
+
+	//컴포넌트가 처음 마운트 됐을 때(=화면에 만들어 졌을 때) 서버에서 데이터를 받아옴
 
 	//useEffect 훅: 특정값이 변경됐을 때 처리하는 로직을 작성
 	//[]: 컴포넌트가 처음 마운트 되었을 때 실행

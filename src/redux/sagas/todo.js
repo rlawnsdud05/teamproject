@@ -18,6 +18,7 @@ function* addTodo(action) {
 	try {
 
 		const result = yield call(api.add, action.payload);
+
 		// //2. API 호출이 완료되면 state를 변경함
 		//        ┌put: reducer에 state를 변경하는(dispatch) 이벤트
 		// yield put({
@@ -51,12 +52,12 @@ function* saveTodoList(action) {
 
 }
 
-function* fetchTodoList(action) {
+function* fetchTodoList() {
 
 
 	//1. 서버에서 데이터 받아오기
 	const result = yield call(api.fetch);
-	console.log(result);
+
 
 	//2. 받아온 데이터로 state 변경
 	yield put({ type: "FETCH_TODOLIST_SUCCEEDED", payload: result.data });
@@ -64,10 +65,10 @@ function* fetchTodoList(action) {
 
 //todo list와 관련된 액션이 dispatch되면 가로채오는 역할 
 function* todoSaga() {
-	//takeEvery: dispatch하는 모든 action에 대해 처리함
+	//takeEvery: dispatch하는 특정 타입의 모든 action에 대해 처리함
 	//takeLatest: 가장 나중에 dispatch하는 action에 대해 처리함
 	//takeEvery or takeLatest 같은 애들을 react-saga에서는 effect라고 부른다.
-	//saga가 dispatch한 addTodo함수를
+
 	yield takeEvery("ADD_TODO", addTodo);
 	yield takeEvery("REMOVE_TODO", removeTodo);
 	yield takeEvery("MODIFY_TODO", saveTodoList);
