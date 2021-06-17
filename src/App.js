@@ -39,7 +39,7 @@ import rootReducer from './redux/reducers';
 //Saga
 import rootSaga from './redux/sagas';
 
-import Home from './components/Home';
+import Home from './components/home/Home';
 
 // saga middlwWare 적용
 const sagaMiddleWare = createSagaMiddleware();
@@ -167,7 +167,7 @@ function App() {
 									</IconButton>
 									<Typography variant='h6' noWrap>
 										MY WORKSPACE
-								</Typography>
+									</Typography>
 								</Toolbar>
 							</AppBar>
 

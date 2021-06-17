@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import ContactTableRow from './ContactTableRow';
 
 
-const ContactTable = ({ tbody, onInputRemove, onInputModify, onInputSave, onInputCancel }) => {
+const ContactTable = () => {
 
 	//select state
 	const contactList = useSelector((state) => state.contact);
