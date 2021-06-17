@@ -1,5 +1,4 @@
-import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import api from "../../api/contact";
 
 function* addContactRow(action) {
@@ -14,10 +13,11 @@ function* addContactRow(action) {
 
 function* saveContactRow(action) {
 
-	yield call(api.save, action.payload);
-
-	yield put({ type: "SAVE_CONTACTROW_SUCCEDED", payload: action.payload });
-
+	try {
+		yield call(api.save, action.payload);
+	} catch (e) {
+		yield put({ type: "SAVE_CONTACTROW_SUCCEDED", payload: action.payload });
+	}
 }
 
 function* removeContactRow(action) {

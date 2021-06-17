@@ -18,7 +18,7 @@ function* addTodo(action) {
 	try {
 
 		const result = yield call(api.add, action.payload);
-
+		console.log(result);
 		// //2. API 호출이 완료되면 state를 변경함
 		//        ┌put: reducer에 state를 변경하는(dispatch) 이벤트
 		// yield put({
@@ -47,7 +47,10 @@ function* removeTodo(action) {
 }
 
 function* saveTodoList(action) {
+	console.log('비동기 통신 시작');
 	const result = yield call(api.modify, action.payload);
+	console.log('비동기 완료' + result);
+	console.log('dispatch 시작');
 	yield put({ type: "MODITY_TODO_SUCCEEDED", payload: result.data });
 
 }
@@ -77,5 +80,5 @@ function* todoSaga() {
 
 
 }
-
+export { addTodo };
 export default todoSaga;

@@ -17,6 +17,8 @@ const TodoList = ({ ulRef, onRemove, onSave }) => {
 	//[]: 컴포넌트가 처음 마운트 되었을 때 실행
 	//[변수]: 변수값이 바뀔 때 실행
 
+	//useEffect(function(),[])
+	//[]의 값이 변경될 때 function() 함수가 실행
 	//컴포넌트가 마운트되고 dispatch 함수가 생성되면  실행
 	useEffect(() => {
 		//서버에서 데이터를 받아오는 action을 실행
