@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 
+
 const TodoForm = ({ onChange, }) => {
 
 	const inputRef = useRef();
@@ -11,7 +12,10 @@ const TodoForm = ({ onChange, }) => {
 	const dispatch = useDispatch();
 
 	const add = () => {
+		console.log('dispatch 시작');
 		dispatch({ type: "ADD_TODO", payload: { memo: inputRef.current.value } });
+		console.log('dispatch 완료');
+
 	};
 
 	const change = (event) => {
@@ -42,7 +46,7 @@ const TodoForm = ({ onChange, }) => {
 				onClick={add}
 			>
 				입력
-      </Button>
+			</Button>
 		</div>
 	);
 };

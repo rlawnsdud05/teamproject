@@ -9,9 +9,13 @@ import ContactTable from "./ContactTable";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		[theme.breakpoints.up("lg")]: {
-      marginTop: "80px",
+			marginTop: "80px",
+		},
+		container: {
+
+		}
+
 	},
-},
 
 }));
 
@@ -22,21 +26,23 @@ const Contact = () => {
 	return (
 
 		<div className={classes.root}>
-			<Grid container spacing={3}>
+			<Grid container spacing={3} className={classes.container}>
+				{/*Hidden엘리먼트에 xsDown 속성을 주면 뷰포인트가 xs이하이면 자식 엘리먼트가 사라짐 */}
+
 				{/* 빈 공백 grid */}
 				<Grid item md={1} lg={3}></Grid>
-				
+
 				{/* 컨텐츠 위치 */}
 				<Grid item sm={12} md={10} lg={7}>
-				
-      <Paper />
+
+					<Paper />
 					<Paper className={classes.paper}>
-						
-					{/* Form 위치 */}
-					
-					<ContactForm/>
-					<ContactTable/>
-						
+
+						{/* Form 위치 */}
+
+						<ContactForm />
+						<ContactTable />
+
 					</Paper>
 				</Grid>
 				{/* 빈 공백 grid */}
