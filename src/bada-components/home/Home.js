@@ -143,7 +143,7 @@ const Home = () => {
 				<Grid item xs={12} sm={7} lg={6}>
 					<Paper className={classes.paper}>
 
-						<SeaWaterBarChart data={transformSidoData(source, sido)} />
+						<SeaWaterBarChart data={transformSidoData(source, sido, month)} />
 					</Paper>
 				</Grid>
 				<Grid item xs={12} sm={5} lg={5}>
