@@ -1,9 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Hidden } from '@material-ui/core';
+import { Hidden, Select } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
 import BarChart from './BarChartSample';
 import LineChart from './LineChartSample';
+import sidoKorName from './data/sidoKorName';
+import sourceSample from './data/source';
+import { useEffect, useState } from 'react';
+import ResponsiveTable from './ResponsiveTableSample';
+import api from '../../api/opendata';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,106 +27,131 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+const transformSidoData = (source) => {
+	if (source.length === 0) return [];
+
+	//가장 최근 데이터
+	const sourceData = source.slice(0, 2);
+
+	const transData = [];
+	for (let name in sidoKorName) {
+		const item = {
+			sido: sidoKorName[name],
+			pm10: parseInt(sourceData[0][name]),
+			pm25: parseInt(sourceData[1][name]),
+		}
+		transData.push(item);
+	}
+	return transData;
+}
+
+const transfromLocationData = (source, sido) => {
+	if (source.length === 0) return [];
+	const transData = [];
+	let item = {};
+	source.forEach((record, index) => {
+		if (index % 2 === 0) {
+			item.dataTime = record.dataTime.substr(11, 5);
+			item.pm10 = parseInt(record[sido]);
+		} else {
+			item.pm25 = parseInt(record[sido]);
+			transData.unshift(item);
+			item = {};
+		}
+
+	});
+	return transData;
+}
+const transformSidoTableData = (source) => {
+	if (source.length === 0) return [];
+	return source.map((item) => {
+		let newItem = { 시간: item.dataTime.substr(5, 11), 구분: item.itemCode }
+		for (let name in sidoKorName) {
+			let val = item[name];
+			newItem[sidoKorName[name]] = parseInt(val);
+		}
+		return newItem;
+	});
+
+}
+
 const Home = () => {
 
-	const sidoCurrentData = [
-		{ sido: "seoul", pm10: 20, pm25: 10 },
-		{ sido: "gyeonggi", pm10: 20, pm25: 10 },
-		{ sido: "incheon", pm10: 14, pm25: 7 },
-		{ sido: "gangwon", pm10: 33, pm25: 15 },
-		{ sido: "sejong", pm10: 22, pm25: 6 },
-		{ sido: "chungbuk", pm10: 34, pm25: 14 },
-		{ sido: "chungnam", pm10: 13, pm25: 7 },
-		{ sido: "daejeon", pm10: 20, pm25: 7 },
-		{ sido: "gyeongbuk", pm10: 23, pm25: 10 },
-		{ sido: "gyeongnam", pm10: 17, pm25: 9 },
-		{ sido: "daegu", pm10: 21, pm25: 9 },
-		{ sido: "ulsan", pm10: 17, pm25: 12 },
-		{ sido: "busan", pm10: 19, pm25: 12 },
-		{ sido: "jeonbuk", pm10: 9, pm25: 5 },
-		{ sido: "jeonnam", pm10: 17, pm25: 9 },
-		{ sido: "gwangju", pm10: 12, pm25: 7 },
-		{ sido: "jeju", pm10: 10, pm25: 4 },
-	];
+	const [sido, setSido] = useState("seoul");
+	const [source, setSource] = useState([]);
 
-	const sidoKorName = {
-		seoul: "서울",
-		gyeonggi: "경기",
-		incheon: "인천",
-		gangwon: "강원",
-		sejong: "세종",
-		chungbuk: "충북",
-		chungnam: "충남",
-		daejeon: "대전",
-		gyeongbuk: "경북",
-		gyeongnam: "경남",
-		daegu: "대구",
-		ulsan: "울산",
-		busan: "부산",
-		jeonbuk: "전북",
-		jeonnam: "전남",
-		gwangju: "광주",
-		jeju: "제주",
-	};
+	//백엔드에서 받아온 데이터를 세팅함
+	useEffect(() => {
+		const getData = async () => {
+			//await 키워드 : promise 처리가 완료될 때 까지 대기
 
-	//data sido 속성값을 변경하고 싶다. sidoKorNameㅇ
-	for (let element of sidoCurrentData) {
-		element.sido = sidoKorName[element.sido];
-	}
+			// async-await, ES8, ES2017
+			const result = await api.fetchDustHourly();
 
-	const locationCurrentData = [
-		{ dataTime: "05-27:01", pm10: 46, pm25: 15 },
-		{ dataTime: "05-27:02", pm10: 46, pm25: 18 },
-		{ dataTime: "05-27:03", pm10: 43, pm25: 16 },
-		{ dataTime: "05-27:04", pm10: 37, pm25: 12 },
-		{ dataTime: "05-27:05", pm10: 39, pm25: 13 },
-		{ dataTime: "05-27:06", pm10: 37, pm25: 14 },
-		{ dataTime: "05-27:07", pm10: 38, pm25: 14 },
-		{ dataTime: "05-27:08", pm10: 42, pm25: 16 },
-		{ dataTime: "05-27:09", pm10: 38, pm25: 15 },
-		{ dataTime: "05-27:10", pm10: 22, pm25: 9 },
-		{ dataTime: "05-27:11", pm10: 17, pm25: 8 },
-		{ dataTime: "05-27:12", pm10: 17, pm25: 10 },
-	];
+			setSource(result.data);
+		}
+		getData();
+	},
+		[]
+	);
 
 
 	const classes = useStyles();
 
 	return (
 		//Grid 컨테이너 선언
-		<Grid container spacing={3} className={classes.container}>
+		<Grid container spacing={1} className={classes.container}>
 			{/* Grid 아이템 선언 lg 사이즈 이상일 때 2칸, */}
 			{/* 1행 */}
 			<Hidden mdDown>
-				<Grid item lg={2} />
+				<Grid item lg={1} />
 			</Hidden>
 			<Grid item xs={12} sm={7} lg={5}>
 				<Paper className={classes.papaer} style={{ height: '20vh' }}>
-					<BarChart data={sidoCurrentData} />
+					<h3>시도별 미세먼지 현황</h3>
+					<BarChart data={transformSidoData(source)} />
 				</Paper>
 			</Grid>
-			<Grid item xs={12} sm={5} lg={3}>
+			<Grid item xs={12} sm={5} lg={6}>
+				<h3>
+					<Select
+						value={sido}
+						onChange={(event) => {
+							setSido(event.target.value);
+						}}
+					>
+						{Object.keys(sidoKorName).map((sido) => (
+							<MenuItem key={`menu-${sido}`} value={sido}>
+
+								{sidoKorName[sido]}
+							</MenuItem>
+						))
+
+						}
+					</Select>
+					미세먼지 현황
+				</h3>
 				<Paper className={classes.papaer} style={{ height: '20vh' }}>
-					<LineChart data={locationCurrentData} />
+					<LineChart data={transfromLocationData(source, sido)} />
 				</Paper>
 			</Grid>
-			<Hidden mdDown>
-				<	Grid item lg={2} />
-			</Hidden>
+
 
 			{/* 2행 */}
 			<Hidden mdDown>
-				<Grid item lg={2} />
+				<Grid item lg={1} />
 			</Hidden>
-			<Grid item xs={12} sm={12} lg={8}>
-				<Paper className={classes.paper} style={{ height: '20vh' }}>
+			<Grid item xs={12} sm={12} lg={5}>
 
+				<Paper className={classes.paper} style={{ height: '20vh' }}>
+					{/* <ResponsiveTable data={transformSidoTableData(source)} /> */}
 				</Paper>
 			</Grid>
 			<Hidden mdDown>
-				<Grid item lg={2} />
+				<Grid item lg={6} />
 			</Hidden>
-		</Grid>
+		</Grid >
 	);
 }
 

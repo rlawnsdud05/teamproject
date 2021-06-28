@@ -166,7 +166,7 @@ function App() {
 										<MenuIcon />
 									</IconButton>
 									<Typography variant='h6' noWrap>
-										MY WORKSPACE
+										바다정보
 									</Typography>
 								</Toolbar>
 							</AppBar>
