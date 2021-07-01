@@ -9,37 +9,39 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
-	table: {
-		minWidth: 650,
+	container: {
+		height: '37vh',
 	},
+	th: {
+		fontWeight: 'bold',
+	}
+
 });
 
 const SeaWaterTable = ({ data }) => {
+	//console.log('-----------table data 체크--------------\n' + data);
 	const classes = useStyles();
 
 	return (
-		<TableContainer component={Paper}>
-			<Table className={classes.table} aria-label="simple table">
+		<TableContainer className={classes.container} component={Paper}>
+			<Table stickyHeader className={classes.table} aria-label="simple table" >
 				<TableHead>
-					<TableRow>
-						<TableCell>해수욕장명</TableCell>
-						<TableCell align="right">장구균수</TableCell>
-						<TableCell align="right">대장균수</TableCell>
-						<TableCell align="right">적합여부</TableCell>
+					<TableRow >
+						{
+							Object.keys(data[0]).map((item, index) =>
 
+								<TableCell className={classes.th} key={index}>{item}</TableCell>
+
+							)
+						}
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{data.map((data) => (
-						<TableRow key={data.해수욕장명}>
-							<TableCell component="th" scope="row">
-								{data.해수욕장명}
-							</TableCell>
-
-							<TableCell align="right">{data.장구균수}</TableCell>
-							<TableCell align="right">{data.대장균수}</TableCell>
-							<TableCell align="right">{data.적합여부}</TableCell>
-
+					{data.map((item, index) => (
+						<TableRow key={--index}>
+							{Object.keys(item).map((key) => (
+								<TableCell align="right" key={item[key] + ++index}>{item[key]}</TableCell>
+							))}
 						</TableRow>
 					))}
 				</TableBody>

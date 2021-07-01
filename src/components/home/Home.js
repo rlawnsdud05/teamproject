@@ -6,9 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import BarChart from './BarChartSample';
 import LineChart from './LineChartSample';
 import sidoKorName from './data/sidoKorName';
-import sourceSample from './data/source';
 import { useEffect, useState } from 'react';
-import ResponsiveTable from './ResponsiveTableSample';
 import api from '../../api/opendata';
 
 

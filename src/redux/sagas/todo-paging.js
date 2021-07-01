@@ -1,6 +1,6 @@
 
 //action에 대해서 중간에 가로채기하여 처리하는 saga
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, select, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import api from '../../api/todo';
 
 
@@ -16,18 +16,18 @@ function* addTodo(action) {
 	//AJAX기술을 적용시켜 서버와 통신하여 ACTION 객체() 전달.
 
 	try {
-
+		//1. 데이터베이스에 추가
 		const result = yield call(api.add, action.payload);
 		console.log(result);
-		// //2. API 호출이 완료되면 state를 변경함
-		//        ┌put: reducer에 state를 변경하는(dispatch) 이벤트
-		// yield put({
-		// 	type: "ADD_TODO_SUCCEEDED",
-		// 	payload: { id: result.data.id, ...action.payload },
-		// });
 
-		//strore에 dispatch하는 단계(서버에 action값 전달한 후에 )
-		yield put({ type: "ADD_TODO_SUCCEEDED", payload: { id: result.data.id, ...action.payload } });
+
+		//2. 서버에서 추가된 데이터를 포함하여 다시 받아옴
+		const { size } = yield select(state => state.todo);
+		const resultFetched = yield call(api.fetchPaging, 0, size);
+
+
+		//2. 받아온 데이터로 state 변경
+		yield put({ type: "FETCH_TODOLIST_PAGING_SUCCEEDED", payload: resultFetched.data });
 	} catch (e) {
 		alert(e.message);
 	}
@@ -36,13 +36,17 @@ function* addTodo(action) {
 }
 
 function* removeTodo(action) {
+
 	//call 함수를 사용하면 api.remove() 함수에 매개변수로 action.payload를 넣어 준다.
 	console.log('ajax적용 서버 통신');
 	yield call(api.remove, action.payload);
 	console.log('통신완료');
 
+	//2. 서버에서 삭제된 데이터를 포함하여 다시 받아옴
+	const { page, size } = yield select(state => state.todo);
+	const resultFetched = yield call(api.fetchPaging, page, size);
 
-	yield put({ type: "REMOVE_TODO_SUCCEEDED", payload: action.payload });
+	yield put({ type: "FETCH_TODOLIST_PAGING_SUCCEEDED", payload: resultFetched.data });
 
 }
 
@@ -55,16 +59,18 @@ function* saveTodoList(action) {
 
 }
 
-function* fetchTodoList() {
+function* fetchTodoListPaging(action) {
 
+	//useSelector은 state 가져오기  state변경에 대한 대기 컴포넌트 업데이트
+	//select는 redux state 가져오기만한다.
+	const { page, size } = yield select(state => state.todo);
 
 	//1. 서버에서 데이터 받아오기
-	const result = yield call(api.fetch);
-
+	const result = yield call(api.fetchPaging, action.payload ? action.payload.page : page, action.payload ? action.payload.size : size);
 
 
 	//2. 받아온 데이터로 state 변경
-	yield put({ type: "FETCH_TODOLIST_SUCCEEDED", payload: result.data });
+	yield put({ type: "FETCH_TODOLIST_PAGING_SUCCEEDED", payload: result.data });
 }
 
 //todo list와 관련된 액션이 dispatch되면 가로채오는 역할 
@@ -76,7 +82,7 @@ function* todoSaga() {
 	yield takeEvery("ADD_TODO", addTodo);
 	yield takeEvery("REMOVE_TODO", removeTodo);
 	yield takeEvery("MODIFY_TODO", saveTodoList);
-	yield takeLatest("FETCH_TODOLIST", fetchTodoList);
+	yield takeLatest("FETCH_TODOLIST_PAGING", fetchTodoListPaging);
 
 
 

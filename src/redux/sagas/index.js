@@ -2,9 +2,11 @@
 
 import { fork } from "@redux-saga/core/effects";
 import contactSaga from "./contact";
-import todoSaga from "./todo";
+import todoSaga from "./todo-paging";
+import seaCommentSaga from "./sea-comment";
 
 export default function* rootSaga() {
 	yield fork(todoSaga);
 	yield fork(contactSaga);
+	yield fork(seaCommentSaga);
 }

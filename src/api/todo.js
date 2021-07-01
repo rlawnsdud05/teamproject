@@ -26,6 +26,7 @@ const todoApi = {
 	modify: (data) => axios.put(`${process.env.REACT_APP_API_BASE}/todos/${data.id}`, data),
 	remove: (id) => axios.delete(`${process.env.REACT_APP_API_BASE}/todos/${id}`),
 	fetch: () => axios.get(`${process.env.REACT_APP_API_BASE}/todos`),
+	fetchPaging: (page, size) => axios.get(`${process.env.REACT_APP_API_BASE}/todos/paging?page=${page}&size=${size}`),
 
 	// fetchPaging: () => axios.get(`${process.env.REACT_APP_API_BASE}/todos/paging?page=${page}&size=${size}`),
 	// remove: (id) => axios.delete(`${process.env.REACT_APP_API_BASE}/todos/${id}`),

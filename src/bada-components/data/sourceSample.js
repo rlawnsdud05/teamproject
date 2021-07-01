@@ -20,7 +20,7 @@ const sourceSample = [
 	{ sido_nm: "경북", gugun_nm: "포항시", sta_nm: "칠포", res_loc: "A", res1: "14", res2: "0", res_yn: "적합", res_year: "2016", res_date: "1464879600000", lat: "36.1317160000", lon: "129.4007450000" },
 	{ sido_nm: "경북", gugun_nm: "포항시", sta_nm: "화진", res_loc: "A", res1: "17", res2: "0", res_yn: "적합", res_year: "2016", res_date: "1464879600000", lat: "36.2525130000", lon: "129.3737630000" },
 	{ sido_nm: "부산", gugun_nm: "서구", sta_nm: "송도", res_loc: "A", res1: "10", res2: "21", res_yn: "적합", res_year: "2016", res_date: "1465225200000", lat: "35.0762090000", lon: "129.0178340000" },
-	{ sido_nm: "부산", gugun_nm: "해운대구", sta_nm: "송정", res_loc: "A", res1: "1", res2: "1", res_yn: "적합", res_year: "2016", res_date: "1465225200000", lat: "35.1787000000", lon: "129.1995420000" },
+	{ sido_nm: "부산", gugun_nm: "해운대구", sta_nm: "송정", res_loc: "A", res1: "1", res2: "1", res_yn: "적합", res_year: "2016", res_date: "1465225200000", lat: "35.g1787000000", lon: "129.1995420000" },
 	{ sido_nm: "부산", gugun_nm: "해운대구", sta_nm: "해운대", res_loc: "A", res1: "20", res2: "5", res_yn: "적합", res_year: "2016", res_date: "1465225200000", lat: "35.1587500000", lon: "129.1616290000" },
 	{ sido_nm: "제주", gugun_nm: "제주시", sta_nm: "김녕성세기", res_loc: "A", res1: "10", res2: "10", res_yn: "적합", res_year: "2016", res_date: "1465311600000", lat: "33.5577340000", lon: "126.7594630000" },
 	{ sido_nm: "제주", gugun_nm: "제주시", sta_nm: "삼양검은모래", res_loc: "A", res1: "10", res2: "10", res_yn: "적합", res_year: "2016", res_date: "1465311600000", lat: "33.5260160000", lon: "126.5858040000" },
