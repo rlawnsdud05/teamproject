@@ -8,6 +8,9 @@ import LineChart from './LineChartSample';
 import sidoKorName from './data/sidoKorName';
 import { useEffect, useState } from 'react';
 import api from '../../api/opendata';
+import source from './data/source';
+import { PROPERTY_TYPES } from '@babel/types';
+import sourceSample from '../../bada-components/data/sourceSample';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +36,7 @@ const transformSidoData = (source) => {
 	const sourceData = source.slice(0, 2);
 
 	const transData = [];
+
 	for (let name in sidoKorName) {
 		const item = {
 			sido: sidoKorName[name],
@@ -93,6 +97,7 @@ const Home = () => {
 	},
 		[]
 	);
+
 
 
 	const classes = useStyles();

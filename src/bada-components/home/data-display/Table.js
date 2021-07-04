@@ -23,30 +23,43 @@ const SeaWaterTable = ({ data }) => {
 	const classes = useStyles();
 
 	return (
-		<TableContainer className={classes.container} component={Paper}>
-			<Table stickyHeader className={classes.table} aria-label="simple table" >
-				<TableHead>
-					<TableRow >
-						{
-							Object.keys(data[0]).map((item, index) =>
+		data.length > 0 && (
+			<TableContainer className={classes.container} component={Paper}>
+				<Table stickyHeader className={classes.table} aria-label="simple table" >
+					<TableHead>
+						<TableRow >
+							{
+								Object.keys(data[0]).map((seaWaterDataSubject, index) =>
 
-								<TableCell className={classes.th} key={index}>{item}</TableCell>
+									<TableCell className={classes.th} key={index}>{seaWaterDataSubject}</TableCell>
 
-							)
-						}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{data.map((item, index) => (
-						<TableRow key={--index}>
-							{Object.keys(item).map((key) => (
-								<TableCell align="right" key={item[key] + ++index}>{item[key]}</TableCell>
-							))}
+								)
+							}
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</TableContainer>
+					</TableHead>
+					<TableBody>
+						{data.map((seaWaterData, index) => (
+							<TableRow key={index}>
+								{/*seaWaterData = {
+									해수욕장명: '부산',
+									장구균수: 100,
+									대장균수: 200,
+									적합여부: '적합',
+								} */}
+								{
+									/*seaWaterDataSubject = [해수욕장명, 장구균수,대장균수] */
+									Object.keys(seaWaterData).map((seaWaterDataSubject, subIndex) =>
+										<TableCell align="right" key={index + subIndex}>{seaWaterData[seaWaterDataSubject]}</TableCell>
+									)
+								}
+
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
+		)
 	);
+
 }
 export default SeaWaterTable;

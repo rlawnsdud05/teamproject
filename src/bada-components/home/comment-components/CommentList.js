@@ -37,7 +37,7 @@ const CommentList = () => {
 	return (
 		<div className={classes.root}>
 
-			<List aria-label="main mailbox folders">
+			<List aria-label="main mailbox folders" style={{ height: "22vh", width: "100%", overflowY: "auto" }} >
 				{
 					seaCommentList.map((eachComment, index) => {
 						//console.log('----------------experienceList data체크-------------\n' + eachComment);

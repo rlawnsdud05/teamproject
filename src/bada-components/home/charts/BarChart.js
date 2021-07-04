@@ -1,13 +1,16 @@
+import { useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
+const SeaWaterBarChart = ({ data, handleClick }) => {
 
 
-const SeaWaterBarChart = ({ data }) => {
+
+	//console.log(station[0].innerHTML);
 	return (
 		<ResponsiveContainer width="100%" height="80%">
 			<BarChart data={data}>
 				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="해수욕장명" />
+				<XAxis dataKey="해수욕장명" onClick={(selectedData) => handleClick(selectedData)} />
 				<YAxis />
 				<Tooltip />
 				<Legend />
