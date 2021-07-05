@@ -14,8 +14,8 @@ const SeaWaterBarChart = ({ data, handleClick }) => {
 				<YAxis />
 				<Tooltip />
 				<Legend />
-				<Bar dataKey="장구균수" fill="#8884d8" />
-				<Bar dataKey="대장균수" fill="#82ca9d" />
+				<Bar dataKey="대장균수" fill="#8884d8" />
+				<Bar dataKey="장구균수" fill="#82ca9d" />
 			</BarChart>
 		</ResponsiveContainer >
 	);
