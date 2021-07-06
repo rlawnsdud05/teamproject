@@ -17,7 +17,6 @@ const CommentInputForm = () => {
 	const classes = useStyles();
 
 	const inputComment = useRef();
-	const inputPhone = useRef();
 	const dispatch = useDispatch();
 
 	const add = () => {
@@ -25,19 +24,22 @@ const CommentInputForm = () => {
 		// console.log(phone.current.value);
 		dispatch({
 			type: 'ADD_SEAWATER_COMMENT',
-			payload: { comment: inputComment.current.value, phone: inputPhone.current.value }
+			payload: { comment: inputComment.current.value }
 		});
 
 		inputComment.current.value = '';
-		inputPhone.current.value = '';
+	}
 
+	const change = (event) => {
+		if (event.charCode === 13) {
+			add();
+		}
 	}
 
 
 	return (
 		<form className={classes.root}>
-			<TextField required size="small" variant="outlined" placeholder="사용자 경험" style={{ width: '65%' }} inputRef={inputComment} />
-			<TextField required size="small" variant="outlined" placeholder="-없이 전화번호 입력" style={{ width: '23%' }} inputRef={inputPhone} />
+			<TextField required size="small" variant="outlined" placeholder="특이사항" onKeyPress={change} inputRef={inputComment} style={{ width: '80%' }} />
 			<Button variant="contained" onClick={add} style={{ backgroundColor: 'rgb(145, 122, 255)' }}>입력</Button>
 		</form>
 	);

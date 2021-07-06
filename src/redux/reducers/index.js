@@ -3,7 +3,7 @@
 import { combineReducers } from 'redux';
 import todo from './todo-paging'; //하위 reducer을 import
 import contact from './contact';
-import seaComment from './sea-comment';
+import seaComment from './sea-comment-paging';
 
 // combineReducers같은 애들을 뭐라 부를까? 함수? 모듈?
 const rootReducer = combineReducers(

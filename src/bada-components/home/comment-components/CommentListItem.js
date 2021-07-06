@@ -24,7 +24,7 @@ const CommentListItem = ({ eachComment }) => {
 	}
 
 	const save = (id) => {
-		console.log('save 메서드 시작---');
+		//console.log('save 메서드 시작---');
 		dispatch({
 			type: 'MODIFY_SEAWATER_COMMENT', payload: { id: id, comment: inputComment.current.value }
 		});

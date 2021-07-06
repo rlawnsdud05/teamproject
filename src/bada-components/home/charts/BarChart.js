@@ -10,7 +10,7 @@ const SeaWaterBarChart = ({ data, handleClick }) => {
 		<ResponsiveContainer width="100%" height="80%">
 			<BarChart data={data}>
 				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="해수욕장명" onClick={(selectedData) => handleClick(selectedData)} />
+				<XAxis dataKey="해수욕장명" onClick={(selectedData) => handleClick(selectedData)} style={{ cursor: "pointer" }} />
 				<YAxis />
 				<Tooltip />
 				<Legend />
