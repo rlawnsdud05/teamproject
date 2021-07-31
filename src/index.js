@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Bada from './Bada';
-
+import Bread from './bread-components/Bread';
 import reportWebVitals from './reportWebVitals';
+
+
+
 
 ReactDOM.render(
 	<React.StrictMode>
-		{/* <App /> */}
-		<Bada />
+		<Bread />
 	</React.StrictMode>,
 	document.getElementById('root')
 );

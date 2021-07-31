@@ -17,20 +17,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectBox = ({ subjectItem, subject, selectedValue, onSelectedChange }) => {
+const SelectBox = ({ subjectItem, subject, getValue }) => {
 
 	const classes = useStyles();
-	// const createState = () => {
-	// 	switch (subject) {
-	// 		case "년도":
+	const [selectedValue, setSelectedValue] = useState('');
+	const handleChange = (event) => {
+		setSelectedValue(event.target.value);
+	};
 
-	// 			break;
-	// 		case "시도":
-
-	// 			break;
-	// 	}
-	// };
-	//const [age, setAge] = useState('');
 	return (
 		<FormControl className={classes.formControl}>
 			<InputLabel id="demo-simple-select-label">{subject}</InputLabel>
@@ -38,7 +32,7 @@ const SelectBox = ({ subjectItem, subject, selectedValue, onSelectedChange }) =>
 				labelId="demo-simple-select-label"
 				id="demo-simple-select"
 				value={selectedValue}
-				onChange={event => { onSelectedChange(event, subject) }}
+				onChange={handleChange}
 			>
 				{
 					subjectItem.map((item, index) =>
@@ -48,6 +42,7 @@ const SelectBox = ({ subjectItem, subject, selectedValue, onSelectedChange }) =>
 				}
 			</Select>
 		</FormControl>
+
 	);
 }
 

@@ -10,9 +10,9 @@ import CommentPagination from './CommentPagination';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
-		maxWidth: 360,
 		backgroundColor: theme.palette.background.paper,
 	},
+
 	'@global': {
 		'.MuiButton-root': {
 			margin: '2px',
@@ -31,9 +31,6 @@ const CommentList = () => {
 
 	//컴포넌트가 마운트 되고 dispatch함수가 생성되면 실행
 	useEffect(() => {
-		//console.log("컴포넌트 마운트");
-		//console.log("dispatch fetch");
-
 		dispatch({ type: "FETCH_SEACOMMENT_PAGING" });
 	}, [dispatch]);
 
@@ -42,7 +39,7 @@ const CommentList = () => {
 	return (
 		<div className={classes.root}>
 
-			<List aria-label="main mailbox folders" style={{ height: "22vh", width: "100%", overflowY: "auto" }} >
+			<List aria-label="main mailbox folders" style={{ height: "22vh", width: "100%", overflowY: "auto", }} >
 				{
 					data.content.map((eachComment, index) => {
 						//console.log('----------------experienceList data체크-------------\n' + eachComment);
